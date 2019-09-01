@@ -43,6 +43,10 @@ public:
 	static int InputInt();
 	static int InputDigit();
 	static bool InVec(std::vector<short int> v, int a);
+
+	static int ReturnInput();
+	static void ShowConsoleCursor(bool showFlag);
+
 private:
 };
 

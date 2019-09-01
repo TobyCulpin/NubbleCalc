@@ -1,17 +1,18 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <conio.h>
 
 #include "ProductSet.h"
 #include "Meth.h"
 #include "Board.h"
 #include "Round.h"
-#include <conio.h>
+#include "Level.h"
 
 
 int main()
 {
-	
+	/*
     std::cout << "\nSTART\n";
 
 	Nubble::Board board = Nubble::Board();
@@ -26,6 +27,11 @@ int main()
 
 	
 	return 0;
+	*/
+
+	Nubble::Level level = Nubble::Level();
+
+	level.DisplayMenu();
 }
 
 

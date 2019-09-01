@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Meth.cpp" />
     <ClCompile Include="NubbleCalc.cpp" />
     <ClCompile Include="ProductSet.cpp" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Meth.h" />
     <ClInclude Include="ProductSet.h" />
     <ClInclude Include="Round.h" />

@@ -9,7 +9,7 @@
 
 namespace Nubble
 {
-	const char* version = "1.0";
+	const char* version = "1.1";
 
 	Level::Level()
 	{
@@ -28,6 +28,8 @@ namespace Nubble
 
 	void Level::EnterLevel(Gamemode g)
 	{
+		Meth::ShowConsoleCursor(true);
+
 		this->gamemode = g;
 
 		Nubble::Board board = Nubble::Board();
@@ -73,11 +75,13 @@ namespace Nubble
 
 	void Level::DisplayMenu()
 	{
+		Meth::ShowConsoleCursor(false);
+
 		std::vector<std::string> gamemodes;
 		gamemodes.push_back("Nubble - Singleplayer");
 		gamemodes.push_back("Nubble - Multiplayer");
-		gamemodes.push_back("Nubble64 - Singleplayer");
-		gamemodes.push_back("Nubble64 - Multiplayer");
+		//gamemodes.push_back("Nubble64 - Singleplayer");
+		//gamemodes.push_back("Nubble64 - Multiplayer");
 
 		int selection = 0;
 		int input;

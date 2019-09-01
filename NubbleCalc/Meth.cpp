@@ -259,7 +259,20 @@ int Meth::InputInt()
 			Meth::goToXY(x, y);
 			continue;
 		}
-		return i;
+		if (i < 1 || i > 100)
+		{
+			Meth::goToXY(x, y);
+			for (int c1 = 0; c1 < input.length(); c1++)
+			{
+				std::cout << " ";
+			}
+			Meth::goToXY(x, y);
+			continue;
+		}
+		else
+		{
+			return i;
+		}
 	}
 }
 
@@ -272,7 +285,7 @@ int Meth::InputDigit()
 			//Using ASCII.  Zero is 48
 			auto input = _getch() - 48;
 
-			if (input > 0 && input < 6)
+			if (input > 0 && input <= 6)
 			{
 				std::cout << (int)input;
 				return input;
@@ -313,4 +326,31 @@ bool Meth::InVec(std::vector<short int> v, int a)
 		}
 	}
 	return false;
+}
+
+int Meth::ReturnInput()
+{
+	while (true)
+	{
+		if (_kbhit() != 0)
+		{
+			//Using ASCII.  Zero is 48
+			auto input = _getch();
+
+			//std::cout << (int)input;
+			return (int)input;
+			
+		}
+	}
+}
+
+void Meth::ShowConsoleCursor(bool showFlag)
+{
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	CONSOLE_CURSOR_INFO     cursorInfo;
+
+	GetConsoleCursorInfo(out, &cursorInfo);
+	cursorInfo.bVisible = showFlag; // set the cursor visibility
+	SetConsoleCursorInfo(out, &cursorInfo);
 }
