@@ -8,6 +8,8 @@
 #pragma once
 #include <vector>
 
+#include "Level.h"
+
 enum state
 {
 	EMPTY = 0,
@@ -21,6 +23,7 @@ namespace Nubble
 	{
 	public:
 		Board();
+		Board(Gamemode g);
 		~Board();
 		std::vector<state> states;
 		std::vector<std::vector<int>> neighbours;

@@ -11,11 +11,12 @@ namespace Nubble
 	
 	}
 
-	ProductSet::ProductSet(std::vector<int> v, Board board)
+	ProductSet::ProductSet(std::vector<int> v, Board board, Gamemode g)
 	{
 		this->V = v;
 		this->b = board;
 		this->setPlayable = true;
+		this->gamemode = g;
 	}
 
 	ProductSet::~ProductSet()
@@ -25,20 +26,42 @@ namespace Nubble
 
 	void ProductSet::Calculate()
 	{
-		std::vector<double (Meth::*)(double, double)> pVec = {&Meth::Add, &Meth::Subtract, &Meth::Multiply, &Meth::Divide};
-		Meth inst;
-
-		for (int c1 = 0; c1 < 64; c1++)
+		if (gamemode == NubbleSingleplayer || gamemode == NubbleMultiplayer)
 		{
-			std::vector<short int> c = Meth::cycle(c1);
-			for (int c2 = 0; c2 < 24; c2++)
-			{
-				std::vector<unsigned char> cD = Meth::cycleDistinct(c2);
-				Nubble::valid = true;
-				if (Nubble::valid) { allProd.push_back((inst.*pVec[c[0]])((inst.*pVec[c[1]])((inst.*pVec[c[2]])(V[cD[0]], V[cD[1]]), V[cD[2]]), V[cD[3]])); }
+			std::vector<double (Meth::*)(double, double)> pVec = { &Meth::Add, &Meth::Subtract, &Meth::Multiply, &Meth::Divide };
+			Meth inst;
 
-				Nubble::valid = true;
-				if (Nubble::valid) { allProd.push_back((inst.*pVec[c[0]])((inst.*pVec[c[1]])(V[cD[0]], V[cD[1]]), (inst.*pVec[c[2]])(V[cD[2]], V[cD[3]]))); }
+			for (int c1 = 0; c1 < 64; c1++)
+			{
+				std::vector<short int> c = Meth::cycle(c1);
+				for (int c2 = 0; c2 < 24; c2++)
+				{
+					std::vector<unsigned char> cD = Meth::cycleDistinct(c2);
+					Nubble::valid = true;
+					if (Nubble::valid) { allProd.push_back((inst.*pVec[c[0]])((inst.*pVec[c[1]])((inst.*pVec[c[2]])(V[cD[0]], V[cD[1]]), V[cD[2]]), V[cD[3]])); }
+
+					Nubble::valid = true;
+					if (Nubble::valid) { allProd.push_back((inst.*pVec[c[0]])((inst.*pVec[c[1]])(V[cD[0]], V[cD[1]]), (inst.*pVec[c[2]])(V[cD[2]], V[cD[3]]))); }
+				}
+			}
+		}
+		else if (gamemode == Nubble64Singleplayer || gamemode == Nubble64Multiplayer)
+		{
+			std::vector<double (Meth::*)(double, double)> pVec = { &Meth::Add, &Meth::Subtract, &Meth::Multiply, &Meth::Divide };
+			Meth inst;
+
+			for (int c1 = 0; c1 < 16; c1++)
+			{
+				std::vector<int> c = Meth::cycle64(c1);
+				for (int c2 = 0; c2 < 6; c2++)
+				{
+					std::vector<int> cD = Meth::cycleDistinct64(c2);
+					Nubble::valid = true;
+					if (Nubble::valid)
+					{
+						allProd.push_back((inst.*pVec[c[0]])((inst.*pVec[c[1]])(V[cD[0]], V[cD[1]]), V[cD[2]]));
+					}
+				}
 			}
 		}
 	}
@@ -47,7 +70,17 @@ namespace Nubble
 	{
 		for (int c1 = 0; c1 < allProd.size(); c1++)
 		{
-			if (std::floor(allProd[c1]) == allProd[c1] && allProd[c1] > 0 && allProd[c1] <= 100)
+			int upperLimit;
+			if (gamemode == NubbleSingleplayer || gamemode == NubbleMultiplayer)
+			{
+				upperLimit = 100;
+			}
+			else if (gamemode == Nubble64Singleplayer || gamemode == Nubble64Multiplayer)
+			{
+				upperLimit = 64;
+			}
+
+			if (std::floor(allProd[c1]) == allProd[c1] && allProd[c1] > 0 && allProd[c1] <= upperLimit)
 			{
 				Nubble::valid = true;
 				bool boo = true;

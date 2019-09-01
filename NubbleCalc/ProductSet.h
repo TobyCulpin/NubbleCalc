@@ -19,7 +19,7 @@ namespace Nubble
 	{
 	public:
 		ProductSet();
-		ProductSet(std::vector<int> v, Board board); //Takes 4 user inputed ints in a vector
+		ProductSet(std::vector<int> v, Board board, Gamemode g); //Takes 4 user inputed ints in a vector
 		~ProductSet();
 		
 		void Calculate(); //Calculates the products
@@ -40,5 +40,6 @@ namespace Nubble
 		std::vector<int> bestPlays; //Set of highest scoring plays
 
 		Board b;
+		Gamemode gamemode;
 	};
 }

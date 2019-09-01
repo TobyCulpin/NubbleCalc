@@ -19,7 +19,7 @@ namespace Nubble
 
 	void Round::Play(Gamemode g)
 	{
-		this->p = ProductSet(Meth::InputValues(), this->b);
+		this->p = ProductSet(Meth::InputValues(g), this->b, g);
 
 		p.Calculate();
 		p.Refine();
@@ -36,16 +36,16 @@ namespace Nubble
 				int x = Meth::whereX();
 				int y = Meth::whereY();
 
-				input = Meth::InputInt();
+				input = Meth::InputInt(g);
 
 				if (Meth::InVec(p.GetValProd(), input))
 				{
 					this->b.states[input] = state::TAKEN;
-					if (g == Gamemode::NubbleSingleplayer)
+					if (g == NubbleSingleplayer || g == Nubble64Singleplayer)
 					{
 						return;
 					}
-					else if (g = Gamemode::NubbleMultiplayer)
+					else if (g == NubbleMultiplayer || g == Nubble64Multiplayer)
 					{
 						std::cout << "\n\nEnter number played by opponent: ";
 
@@ -54,7 +54,7 @@ namespace Nubble
 							int x = Meth::whereX();
 							int y = Meth::whereY();
 
-							input = Meth::InputInt();
+							input = Meth::InputInt(g);
 
 							if (this->b.states[input] != state::TAKEN)
 							{
@@ -88,11 +88,6 @@ namespace Nubble
 
 			std::getline(std::cin, blank);
 		}
-	}
-
-	void Round::Play64(Gamemode g)
-	{
-
 	}
 
 }

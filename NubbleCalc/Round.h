@@ -14,7 +14,6 @@ namespace Nubble
 		Round(Board board);
 		~Round();
 		void Play(Gamemode g);
-		void Play64(Gamemode g);
 
 	private:
 		Board b;

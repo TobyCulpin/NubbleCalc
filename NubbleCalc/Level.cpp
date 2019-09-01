@@ -9,7 +9,7 @@
 
 namespace Nubble
 {
-	const char* version = "1.1";
+	const char* version = "1.2";
 
 	Level::Level()
 	{
@@ -32,7 +32,7 @@ namespace Nubble
 
 		this->gamemode = g;
 
-		Nubble::Board board = Nubble::Board();
+		Nubble::Board board = Nubble::Board(g);
 		Nubble::Round round = Nubble::Round(board);
 
 		switch (g)
@@ -53,12 +53,18 @@ namespace Nubble
 
 		case Nubble64Singleplayer:
 		{
-
+			while (true)
+			{
+				round.Play(g);
+			}
 		}
 
 		case Nubble64Multiplayer:
 		{
-
+			while (true)
+			{
+				round.Play(g);
+			}
 		}
 		}
 	}
@@ -80,8 +86,8 @@ namespace Nubble
 		std::vector<std::string> gamemodes;
 		gamemodes.push_back("Nubble - Singleplayer");
 		gamemodes.push_back("Nubble - Multiplayer");
-		//gamemodes.push_back("Nubble64 - Singleplayer");
-		//gamemodes.push_back("Nubble64 - Multiplayer");
+		gamemodes.push_back("Nubble64 - Singleplayer");
+		gamemodes.push_back("Nubble64 - Multiplayer");
 
 		int selection = 0;
 		int input;

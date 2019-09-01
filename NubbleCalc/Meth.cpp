@@ -64,19 +64,45 @@ double Meth::Divide(double a, double b)
 
 std::vector<short int> Meth::cycle(unsigned char a)
 {
-	if (a > 63) { return { 3, 3, 3 }; };
+	if (a > 63)
+	{
+		return { 3, 3, 3 };
+	}
 
 	short int v = a;
 	short int v1, v2, v3;
 
-	v1 = v / 16;	v = v - (v1 * 16);
-	v2 = v / 4;		v = v - (v2 * 4);
+	v1 = v / 16;	
+	v -= (v1 * 16);
+
+	v2 = v / 4;		
+	v -= (v2 * 4);
+
 	v3 = v;
 
 	return { v1, v2, v3 };
 }
 
-std::vector<std::vector<unsigned char>> Meth::V = {
+std::vector<int> Meth::cycle64(int a)
+{
+	if (a > 15)
+	{
+		return { 3, 3 };
+	}
+
+	unsigned char v = a;
+	unsigned char v1, v2;
+
+	v1 = v / 4;
+	v -= (v1 * 4);
+
+	v2 = v;
+
+	return { v1, v2 };
+}
+
+std::vector<std::vector<unsigned char>> Meth::V =
+{
 		{ 0, 1, 2, 3 },
 		{ 0, 1, 3, 2 },
 		{ 0, 2, 1, 3 },
@@ -100,14 +126,38 @@ std::vector<std::vector<unsigned char>> Meth::V = {
 		{ 3, 1, 0, 2 },
 		{ 3, 1, 2, 0 },
 		{ 3, 2, 0, 1 },
-		{ 3, 2, 1, 0 } };
+		{ 3, 2, 1, 0 } 
+};
+
+std::vector<std::vector<int>> Meth::V64 =
+{
+	{ 0, 1, 2 },
+	{ 0, 2, 1 },
+	{ 1, 0, 2 },
+	{ 1, 2, 0 },
+	{ 2, 0, 1 },
+	{ 2, 1, 0 }
+};
 
 
 std::vector<unsigned char> Meth::cycleDistinct(unsigned char a)
 {
-	if (a > 23) { return { 0, 1, 2, 3 }; };
+	if (a > 23)
+	{
+		return { 0, 1, 2, 3 };
+	}
 
 	return Meth::V[a];
+}
+
+std::vector<int> Meth::cycleDistinct64(int a)
+{
+	if (a > 5)
+	{
+		return { 0, 1, 2 };
+	}
+
+	return Meth::V64[a];
 }
 
 std::vector<short int> Meth::Ascend(std::vector<short int> vec)
@@ -234,7 +284,7 @@ void Meth::VecOut(std::vector<state> v)
 	}
 }
 
-int Meth::InputInt()
+int Meth::InputInt(Gamemode g)
 {
 	while (true)
 	{
@@ -259,7 +309,18 @@ int Meth::InputInt()
 			Meth::goToXY(x, y);
 			continue;
 		}
-		if (i < 1 || i > 100)
+
+		int upperLimit;
+		if (g == NubbleSingleplayer || g == NubbleMultiplayer)
+		{
+			upperLimit = 100;
+		}
+		else if (g == Nubble64Singleplayer || g == Nubble64Multiplayer)
+		{
+			upperLimit = 64;
+		}
+
+		if (i < 1 || i > upperLimit)
 		{
 			Meth::goToXY(x, y);
 			for (int c1 = 0; c1 < input.length(); c1++)
@@ -276,7 +337,7 @@ int Meth::InputInt()
 	}
 }
 
-int Meth::InputDigit()
+int Meth::InputDigit(Gamemode g)
 {
 	while (true)
 	{
@@ -285,7 +346,16 @@ int Meth::InputDigit()
 			//Using ASCII.  Zero is 48
 			auto input = _getch() - 48;
 
-			if (input > 0 && input <= 6)
+			int upperLimit;
+			if (g == NubbleSingleplayer || g == NubbleMultiplayer)
+			{
+				upperLimit = 6;
+			}
+			else if (g == Nubble64Singleplayer || g == Nubble64Multiplayer)
+			{
+				upperLimit = 8;
+			}
+			if (input > 0 && input <= upperLimit)
 			{
 				std::cout << (int)input;
 				return input;
@@ -294,24 +364,39 @@ int Meth::InputDigit()
 	}
 }
 
-std::vector<int> Meth::InputValues()
+std::vector<int> Meth::InputValues(Gamemode g)
 {
 	system("CLS");
 
 	std::vector<int> v;
 
-	std::cout << "Enter the first number  : ";
-	v.push_back(Meth::InputDigit());
-	std::cout << "\n";
-	std::cout << "Enter the second number : ";
-	v.push_back(Meth::InputDigit());
-	std::cout << "\n";
-	std::cout << "Enter the third number  : ";
-	v.push_back(Meth::InputDigit());
-	std::cout << "\n";
-	std::cout << "Enter the forth number  : ";
-	v.push_back(Meth::InputDigit());
-	std::cout << "\n";
+	if (g == NubbleSingleplayer || g == NubbleMultiplayer)
+	{
+		std::cout << "Enter the first number  : ";
+		v.push_back(Meth::InputDigit(g));
+		std::cout << "\n";
+		std::cout << "Enter the second number : ";
+		v.push_back(Meth::InputDigit(g));
+		std::cout << "\n";
+		std::cout << "Enter the third number  : ";
+		v.push_back(Meth::InputDigit(g));
+		std::cout << "\n";
+		std::cout << "Enter the forth number  : ";
+		v.push_back(Meth::InputDigit(g));
+		std::cout << "\n";
+	}
+	else if (g == Nubble64Singleplayer || g == Nubble64Multiplayer)
+	{
+		std::cout << "Enter the first number  : ";
+		v.push_back(Meth::InputDigit(g));
+		std::cout << "\n";
+		std::cout << "Enter the second number : ";
+		v.push_back(Meth::InputDigit(g));
+		std::cout << "\n";
+		std::cout << "Enter the third number  : ";
+		v.push_back(Meth::InputDigit(g));
+		std::cout << "\n";
+	}
 
 	return v;
 }
