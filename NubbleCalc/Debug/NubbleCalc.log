@@ -1,7 +1,5 @@
-﻿  Board.cpp
+﻿  Level.cpp
 E:\Dev\NubbleCalc\NubbleCalc\Meth.h(56,2): warning C4091:  'static ': ignored on left of 'Meth' when no variable is declared
-E:\Dev\NubbleCalc\NubbleCalc\Board.cpp(39,25): warning C4018:  '<': signed/unsigned mismatch
-E:\Dev\NubbleCalc\NubbleCalc\Board.cpp(69,25): warning C4018:  '<': signed/unsigned mismatch
-E:\Dev\NubbleCalc\NubbleCalc\Board.cpp(136,25): warning C4018:  '<': signed/unsigned mismatch
-E:\Dev\NubbleCalc\NubbleCalc\Board.cpp(166,25): warning C4018:  '<': signed/unsigned mismatch
+E:\Dev\NubbleCalc\NubbleCalc\Level.cpp(90,17): warning C4018:  '<': signed/unsigned mismatch
+E:\Dev\NubbleCalc\NubbleCalc\Level.cpp(117,23): warning C4018:  '<': signed/unsigned mismatch
   NubbleCalc.vcxproj -> E:\Dev\NubbleCalc\Debug\NubbleCalc.exe

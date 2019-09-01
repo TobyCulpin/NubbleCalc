@@ -35,37 +35,9 @@ namespace Nubble
 		Nubble::Board board = Nubble::Board(g);
 		Nubble::Round round = Nubble::Round(board);
 
-		switch (g)
+		while (true)
 		{
-		case NubbleSingleplayer:
-
-			while (true)
-			{
-				round.Play(g);
-			}
-
-		case NubbleMultiplayer:
-
-			while (true)
-			{
-				round.Play(g);
-			}
-
-		case Nubble64Singleplayer:
-		{
-			while (true)
-			{
-				round.Play(g);
-			}
-		}
-
-		case Nubble64Multiplayer:
-		{
-			while (true)
-			{
-				round.Play(g);
-			}
-		}
+			round.Play(g);
 		}
 	}
 
